@@ -2,7 +2,7 @@
 
 This is a project to demonstrate one way to implement the MVC (Model, View, Controller) design pattern in Python with SQLite.
 
-## MVC 
+![App Interface](./img/app.png)
 
 ### Purpose
 
