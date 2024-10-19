@@ -16,6 +16,14 @@ https://ttkbootstrap.readthedocs.io/en/latest/
 
 ![App Interface](./img/app_bootstrap.png)
 
+## PySide6
+
+![App Interface](./img/app_pyside6.png)
+
+## PySide6 Dark
+
+![App Interface](./img/app_pyside6_dark.png)
+
 ### Purpose
 
 I am an Information Technology Instructor at [Western Nebraska Community College](https://www.wncc.edu). I teach Information Technology, CyberSecurity and Computer Science. Best job ever!
