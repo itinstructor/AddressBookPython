@@ -50,6 +50,7 @@ class AddressBook:
         """
         # Create main application root window
         self.root = Tk()
+        self.root.protocol("WM_DELETE_WINDOW", self.close)
 
         # Set window location on screen 400 pixels right 300 pixels down
         # The window size will change based on the controls
@@ -291,6 +292,11 @@ class AddressBook:
             text="Delete Selected",
             command=self.delete_record
         )
+        self.btn_close = Button(
+            self.operations_frame,
+            text="Close",
+            command=self.close
+        )
 
         # ------------------------- GRID WIDGETS ------------------------- #
         self.lbl_first_name.grid(row=0, column=0)
@@ -307,6 +313,7 @@ class AddressBook:
         self.btn_add.grid(row=0, column=0, sticky=EW)
         self.btn_modify.grid(row=1, column=0, sticky=EW)
         self.btn_delete.grid(row=2, column=0, sticky=EW)
+        self.btn_close.grid(row=3, column=0, sticky=EW)
 
         # Set padding between frame and window
         self.entry_frame.grid_configure(padx=20, pady=(20))
@@ -369,6 +376,9 @@ class AddressBook:
 
         # Fill the treeview selection to the entry boxes
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
+
+    def close(self):
+        self.root.destroy()
 
 
 # ----------------- START PROGRAM ---------------------------------------- #

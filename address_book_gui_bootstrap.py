@@ -52,6 +52,8 @@ class AddressBook:
         # Create main application root window
         self.root = ttk.Window(themename="darkly")
 
+        self.root.protocol("WM_DELETE_WINDOW", self.close)
+
         # Set window location on screen 400 pixels right 300 pixels down
         # The window size will change based on the controls
         self.root.geometry("+400+300")
@@ -292,6 +294,11 @@ class AddressBook:
             text="Delete Selected",
             command=self.delete_record
         )
+        self.btn_close = ttk.Button(
+            self.operations_frame,
+            text="Close",
+            command=self.close
+        )
 
         # ------------------------- GRID WIDGETS ------------------------- #
         self.lbl_first_name.grid(row=0, column=0)
@@ -308,6 +315,7 @@ class AddressBook:
         self.btn_add.grid(row=0, column=0, sticky=EW)
         self.btn_modify.grid(row=1, column=0, sticky=EW)
         self.btn_delete.grid(row=2, column=0, sticky=EW)
+        self.btn_close.grid(row=3, column=0, sticky=EW)
 
         # Set padding between frame and window
         self.entry_frame.grid_configure(padx=20, pady=(20))
@@ -381,10 +389,7 @@ class AddressBook:
         # This will trigger when a row is selected in the treeview
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
-
 # ----------------------- SORT TREEVIEW ---------------------------------- #
-
-
     def sort_treeview(self, column, descending):
         # Function to sort the Treeview by the specified column.
 
@@ -411,6 +416,9 @@ class AddressBook:
         self.tree.heading(
             column, command=lambda: self.sort_treeview(column, not descending)
         )
+
+    def close(self):
+        self.root.destroy()
 
 
 # ----------------------- START PROGRAM ---------------------------------- #
