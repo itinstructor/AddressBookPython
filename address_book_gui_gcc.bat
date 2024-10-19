@@ -1,3 +1,4 @@
+rem pip install nuitka
 cd c:\temp
 
 python -m nuitka ^
@@ -5,8 +6,7 @@ python -m nuitka ^
     --mingw64 ^
     --lto=no ^
     --enable-plugin=tk-inter ^
-    --disable-ccache ^
-    --windows-disable-console ^
+    --windows-console-mode=disable ^
     --windows-icon-from-ico=address_book.ico ^
     address_book_gui.py
 pause
