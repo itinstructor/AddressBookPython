@@ -98,10 +98,7 @@ class AddressBook:
                 )
 
         # Clear the entry widgets
-        self.entry_fname.delete(0, END)
-        self.entry_lname.delete(0, END)
-        self.entry_phone.delete(0, END)
-        self.entry_email.delete(0, END)
+        self.clear_entry_widgets()
 
         # Display all records in treeview
         self.fetch_all_records()
@@ -139,11 +136,8 @@ class AddressBook:
         """When a record is selected, the values are inserted into
            the appropriate entry boxes for modification."""
         try:
-            # Clear entry boxes
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
+            # Clear entry widgets
+            self.clear_entry_widgets()
 
             # Get the selected (focus) item from the tree
             self.selected = self.tree.focus()
@@ -183,12 +177,8 @@ class AddressBook:
             # Execute query against SQLite database
             self.db_op.update_record(first_name, last_name, phone, email, id)
 
-            # Clear entry widgets, set focus to name entry widget
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
-            self.entry_fname.focus()
+            # Clear entry widgets
+            self.clear_entry_widgets()
 
             # Display all records in treeview
             self.fetch_all_records()
@@ -216,10 +206,7 @@ class AddressBook:
             self.db_op.delete_record(id)
 
             # Clear the Entry widgets
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
+            self.clear_entry_widgets()
 
             # Set the focus
             self.entry_fname.focus()
@@ -335,7 +322,7 @@ class AddressBook:
     def create_treeview(self):
         """Setup tree view for record display"""
 
-        # Define the columns for the treeview (id, first_name, last_name, phone, email)
+        # Define the columns for the treeview
         self.columns = "id", "first_name", "last_name", "phone", "email"
 
         # Create the Treeview widget
@@ -350,24 +337,35 @@ class AddressBook:
         )
 
         # Set the width for each column in the treeview
-        self.tree.column("id", width=30)
-        self.tree.column("first_name", width=120)
-        self.tree.column("last_name", width=120)
-        self.tree.column("phone", width=150)
-        self.tree.column("email", width=250)
+        self.tree.column("id", width=40)
+        self.tree.column("first_name", width=150)
+        self.tree.column("last_name", width=150)
+        self.tree.column("phone", width=175)
+        self.tree.column("email", width=300)
 
         # Set up the column headings with sorting functionality
-        self.tree.heading("id", text="ID", anchor=W,  # Text shown in the "id" column header
+        # Text shown in the "id" column header
+        self.tree.heading("id", text="ID", anchor=W,
                           # Sort by ID when clicked
-                          command=lambda: self.sort_treeview("id", False))
+                          command=lambda: self.sort_treeview("id", False)
+                          )
         self.tree.heading("first_name", text="First Name", anchor=W,
-                          command=lambda: self.sort_treeview("first_name", False))
+                          command=lambda: self.sort_treeview(
+                              "first_name", False)
+                          )
         self.tree.heading("last_name", text="Last Name", anchor=W,
-                          command=lambda: self.sort_treeview("last_name", False))
+                          command=lambda: self.sort_treeview(
+                              "last_name", False)
+                          )
         self.tree.heading("phone", text="Phone", anchor=W,
-                          command=lambda: self.sort_treeview("phone", False))
-        self.tree.heading("email", text="Email", anchor=W,
-                          command=lambda: self.sort_treeview("email", False))
+                          command=lambda: self.sort_treeview("phone", False)
+                          )
+        self.tree.heading(
+            "email",
+            text="Email",
+            anchor=W,
+            command=lambda: self.sort_treeview("email", False)
+        )
 
         # Place the treeview widget in the grid at row 0, column 0
         self.tree.grid(row=0, column=0)
@@ -417,6 +415,16 @@ class AddressBook:
             column, command=lambda: self.sort_treeview(column, not descending)
         )
 
+# --------------------- CLEAR ENTRY WIDGETS ------------------------------ #
+    def clear_entry_widgets(self):
+        # Clear entry widgets, set focus to name entry widget
+        self.entry_fname.delete(0, END)
+        self.entry_lname.delete(0, END)
+        self.entry_phone.delete(0, END)
+        self.entry_email.delete(0, END)
+        self.entry_fname.focus()
+
+# -------------------------- CLOSE PROGRAM ------------------------------- #
     def close(self):
         self.root.destroy()
 

@@ -96,10 +96,7 @@ class AddressBook:
                 )
 
         # Clear the entry widgets
-        self.entry_fname.delete(0, END)
-        self.entry_lname.delete(0, END)
-        self.entry_phone.delete(0, END)
-        self.entry_email.delete(0, END)
+        self.clear_entry_widgets()
 
         # Display all records in treeview
         self.fetch_all_records()
@@ -138,10 +135,7 @@ class AddressBook:
            the appropriate entry boxes for modification."""
         try:
             # Clear entry boxes
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
+            self.clear_entry_widgets()
 
             # Get the selected (focus) item from the tree
             self.selected = self.tree.focus()
@@ -182,11 +176,7 @@ class AddressBook:
             self.db_op.update_record(first_name, last_name, phone, email, id)
 
             # Clear entry widgets, set focus to name entry widget
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
-            self.entry_fname.focus()
+            self.clear_entry_widgets()
 
             # Display all records in treeview
             self.fetch_all_records()
@@ -214,10 +204,7 @@ class AddressBook:
             self.db_op.delete_record(id)
 
             # Clear the Entry widgets
-            self.entry_fname.delete(0, END)
-            self.entry_lname.delete(0, END)
-            self.entry_phone.delete(0, END)
-            self.entry_email.delete(0, END)
+            self.clear_entry_widgets()
 
             # Set the focus
             self.entry_fname.focus()
@@ -377,6 +364,16 @@ class AddressBook:
         # Fill the treeview selection to the entry boxes
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
+# --------------------- CLEAR ENTRY WIDGETS ------------------------------ #
+    def clear_entry_widgets(self):
+        # Clear entry widgets, set focus to name entry widget
+        self.entry_fname.delete(0, END)
+        self.entry_lname.delete(0, END)
+        self.entry_phone.delete(0, END)
+        self.entry_email.delete(0, END)
+        self.entry_fname.focus()
+
+# -------------------------- CLOSE PROGRAM ------------------------------- #
     def close(self):
         self.root.destroy()
 

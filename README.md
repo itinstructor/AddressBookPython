@@ -1,12 +1,18 @@
 # Address Book built with Python, SQLite, and Tkinter
 
-This is a project to demonstrate one way to implement the MVC (Model, View, Controller) design pattern in Python with SQLite.
+This is a project to demonstrate one way to implement the MVC (Model, View, Controller) design pattern in Python with SQLite. I decided to create different Python UI library versions. Each UI (View) uses the same Controller (db_operations.py) and database (address_book.db).
 
-Standard tkinter.
+## tkinter.ttk
+
+tkinter.ttk library built in to Python.
 
 ![App Interface](./img/app.png)
 
-Use the ttkbootstrap library. Add sorting functionality to the column headings.
+## ttkbootstrap
+
+https://ttkbootstrap.readthedocs.io/en/latest/
+
+- Added sorting functionality to the column headings.
 
 ![App Interface](./img/app_bootstrap.png)
 
