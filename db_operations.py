@@ -140,7 +140,7 @@ class DBOperations:
         except Exception as e:
             print(f"There was an SQLite error: {e}")
 
-# -------------------- EXECUTE SQL ----------------------------------------#
+# -------------------- EXECUTE SQL --------------------------------------- #
     def execute_sql(self, SQL: str, parameters: tuple = None):
         # This is an overloaded method in Python, parameters is optional
         # If everything inside the with sqlite3.connect is successful

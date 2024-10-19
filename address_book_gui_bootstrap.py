@@ -10,6 +10,9 @@
 from tkinter import *
 # Override tk widgets with nicer looking ttk themed widgets
 from tkinter.ttk import *
+# python pip install ttkbootstrap
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 # Database operations library
 import db_operations
 
@@ -49,7 +52,7 @@ class AddressBook:
         sets its properties, creates and grids the frames and widgets.
         """
         # Create main application root window
-        self.root = Tk()
+        self.root = ttk.Window(themename="darkly")
 
         # Set window location on screen 400 pixels right 300 pixels down
         # The window size will change based on the controls

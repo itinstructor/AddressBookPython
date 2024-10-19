@@ -2,7 +2,12 @@
 
 This is a project to demonstrate one way to implement the MVC (Model, View, Controller) design pattern in Python with SQLite.
 
+Standard tkinter.
 ![App Interface](./img/app.png)
+
+Using the ttkbootstrap library.
+
+![App Interface](./img/app_bootstrap.png)
 
 ### Purpose
 
