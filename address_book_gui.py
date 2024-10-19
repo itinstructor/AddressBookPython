@@ -127,6 +127,8 @@ class AddressBook:
                     id, first_name, last_name, phone, email)
                 )
         except:
+            # When the database file is created for the first time
+            # it doesn't contain records and causes an exception
             pass
 
 # ----------------------- ON TREE SELECT --------------------------------- #
