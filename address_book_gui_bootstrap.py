@@ -8,8 +8,6 @@
 
 # Import tkinter library
 from tkinter import *
-# Override tk widgets with nicer looking ttk themed widgets
-from tkinter.ttk import *
 # python pip install ttkbootstrap
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
@@ -20,7 +18,7 @@ import db_operations
 class AddressBook:
     def __init__(self):
         """
-        Initializes the AddressBook class.
+        Initialize the AddressBook class.
 
         This method creates a database controller object, 
         creates a table in the database if it doesn't exist,
@@ -43,7 +41,7 @@ class AddressBook:
         # Start the main Tkinter program loop
         mainloop()
 
-# ----------------- INITIALIZE GUI  -------------------------------------- #
+# --------------------------- INITIALIZE GUI  ---------------------------- #
     def init_gui(self):
         """
         Initialize the GUI of the Address Book application.
@@ -237,17 +235,17 @@ class AddressBook:
 
 # -------------------------- CREATE FRAMES --------------------------------#
     def create_frames(self):
-        self.entry_frame = LabelFrame(
+        self.entry_frame = ttk.LabelFrame(
             self.root,
             text="Enter Contact Info",
             relief=GROOVE
         )
-        self.operations_frame = LabelFrame(
+        self.operations_frame = ttk.LabelFrame(
             self.root,
             text="Record Operations",
             relief=GROOVE
         )
-        self.treeview_frame = LabelFrame(
+        self.treeview_frame = ttk.LabelFrame(
             self.root,
             text="Contact List",
             relief=GROOVE
@@ -260,36 +258,36 @@ class AddressBook:
 # ------------------------- CREATE WIDGETS ------------------------------- #
     def create_widgets(self):
         # ------------------------ CREATE LABELS ------------------------- #
-        self.lbl_first_name = Label(
+        self.lbl_first_name = ttk.Label(
             self.entry_frame, text="First Name:", anchor="e")
-        self.lbl_last_name = Label(
+        self.lbl_last_name = ttk.Label(
             self.entry_frame, text="Last Name:", anchor="e")
-        self.lbl_phone = Label(
+        self.lbl_phone = ttk.Label(
             self.entry_frame, text="Phone:", anchor="e")
-        self.lbl_email = Label(
+        self.lbl_email = ttk.Label(
             self.entry_frame, text="Email:", anchor="e")
-        self.lbl_status = Label(self.entry_frame, text=" ", anchor="w")
+        self.lbl_status = ttk.Label(self.entry_frame, text=" ", anchor="w")
 
         # -------------------- CREATE ENTRY BOXES ------------------------ #
-        self.entry_fname = Entry(self.entry_frame, width=30)
+        self.entry_fname = ttk.Entry(self.entry_frame, width=30)
         # Set focus for data entry
         self.entry_fname.focus_set()
-        self.entry_lname = Entry(self.entry_frame, width=30)
-        self.entry_phone = Entry(self.entry_frame, width=30)
-        self.entry_email = Entry(self.entry_frame, width=30)
+        self.entry_lname = ttk.Entry(self.entry_frame, width=30)
+        self.entry_phone = ttk.Entry(self.entry_frame, width=30)
+        self.entry_email = ttk.Entry(self.entry_frame, width=30)
 
         # ------------------------ CREATE BUTTONS ------------------------ #
-        self.btn_add = Button(
+        self.btn_add = ttk.Button(
             self.operations_frame,
             text="Add",
             command=self.insert_record
         )
-        self.btn_modify = Button(
+        self.btn_modify = ttk.Button(
             self.operations_frame,
             text="Update Selected",
             command=self.update_record
         )
-        self.btn_delete = Button(
+        self.btn_delete = ttk.Button(
             self.operations_frame,
             text="Delete Selected",
             command=self.delete_record
@@ -328,51 +326,92 @@ class AddressBook:
 # ------------------------- TREEVIEW AND SCROLLBAR ----------------------- #
     def create_treeview(self):
         """Setup tree view for record display"""
-        # Create treeview
-        self.tree = Treeview(
-            self.treeview_frame,
-            height=10,
-            # Add database fields to the end of the columns
-            columns=("id", "first_name", "last_name", "phone", "email"),
+
+        # Define the columns for the treeview (id, first_name, last_name, phone, email)
+        self.columns = "id", "first_name", "last_name", "phone", "email"
+
+        # Create the Treeview widget
+        self.tree = ttk.Treeview(
+            self.treeview_frame,  # Parent frame that contains the treeview
+            height=10,  # Number of rows visible in the treeview
+            columns=self.columns,  # Database fields (columns) for the treeview
+            # Style for the widget (optional, based on theme)
             style="Treeview",
-            show="headings",
-            selectmode="browse"
+            show="headings",  # Show only the column headings, without the root column
+            selectmode="browse"  # Only one row can be selected at a time
         )
 
-        # Setup the columns
+        # Set the width for each column in the treeview
         self.tree.column("id", width=30)
         self.tree.column("first_name", width=120)
         self.tree.column("last_name", width=120)
-        self.tree.column("phone", width=120)
-        self.tree.column("email", width=175)
+        self.tree.column("phone", width=150)
+        self.tree.column("email", width=250)
 
-        # Setup the heading text visible at the top of the column
-        self.tree.heading("id", text="ID", anchor=W)
-        self.tree.heading("first_name", text="First Name", anchor=W)
-        self.tree.heading("last_name", text="Last Name", anchor=W)
-        self.tree.heading("phone", text="Phone", anchor=W)
-        self.tree.heading("email", text="Email", anchor=W)
+        # Set up the column headings with sorting functionality
+        self.tree.heading("id", text="ID", anchor=W,  # Text shown in the "id" column header
+                          # Sort by ID when clicked
+                          command=lambda: self.sort_treeview("id", False))
+        self.tree.heading("first_name", text="First Name", anchor=W,
+                          command=lambda: self.sort_treeview("first_name", False))
+        self.tree.heading("last_name", text="Last Name", anchor=W,
+                          command=lambda: self.sort_treeview("last_name", False))
+        self.tree.heading("phone", text="Phone", anchor=W,
+                          command=lambda: self.sort_treeview("phone", False))
+        self.tree.heading("email", text="Email", anchor=W,
+                          command=lambda: self.sort_treeview("email", False))
 
-        # Grid the tree
+        # Place the treeview widget in the grid at row 0, column 0
         self.tree.grid(row=0, column=0)
 
-        # Create scrollbar for treeview
-        self.scrollbar = Scrollbar(
-            self.treeview_frame,
-            orient="vertical",
-            command=self.tree.yview
+        # Create a vertical scrollbar for the treeview
+        self.scrollbar = ttk.Scrollbar(
+            self.treeview_frame,  # Parent frame for the scrollbar
+            orient="vertical",  # Scrollbar orientation
+            command=self.tree.yview  # Command to scroll the treeview vertically
         )
 
-        # Set scroll bar to scroll vertically and attach to the tree
+        # Configure the treeview to work with the scrollbar
         self.tree.configure(yscroll=self.scrollbar.set)
 
-        # Grid scrollbar just to the right of the tree
-        # sn (SouthNorth) expands scrollbar to height of tree
+        # Place the scrollbar next to the treeview (right side) and make it stretch vertically
         self.scrollbar.grid(row=0, column=1, sticky="sn")
 
-        # Fill the treeview selection to the entry boxes
+        # Bind the selection event to a handler
+        # This will trigger when a row is selected in the treeview
         self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
 
-# ----------------- START PROGRAM ---------------------------------------- #
+# ----------------------- SORT TREEVIEW ---------------------------------- #
+
+
+    def sort_treeview(self, column, descending):
+        # Function to sort the Treeview by the specified column.
+
+        # Extract the data from the Treeview.
+        # For each item in the Treeview, get the value associated with the
+        # specified column. This creates a list of tuples, where each
+        # tuple contains the column value and the item (Treeview row).
+        data = [(self.tree.set(item, column), item)
+                for item in self.tree.get_children('')]
+
+        # Sort the list of tuples based on the column values.
+        # 'reverse=descending' determines the order of sorting
+        # (ascending or descending).
+        data.sort(reverse=descending)
+
+        # Rearrange the items in the Treeview to reflect the sorted order.
+        # 'enumerate' provides an index, which is used to set the
+        # new position for each item.
+        for index, (val, item) in enumerate(data):
+            self.tree.move(item, '', index)
+
+        # Update the column heading to allow toggling between
+        # ascending and descending order for the next click.
+        self.tree.heading(
+            column, command=lambda: self.sort_treeview(column, not descending)
+        )
+
+
+# ----------------------- START PROGRAM ---------------------------------- #
 address_book = AddressBook()

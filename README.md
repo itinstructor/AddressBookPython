@@ -6,7 +6,7 @@ Standard tkinter.
 
 ![App Interface](./img/app.png)
 
-Using the ttkbootstrap library.
+Use the ttkbootstrap library. Add sorting functionality to the column headings.
 
 ![App Interface](./img/app_bootstrap.png)
 
