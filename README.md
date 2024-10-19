@@ -1,6 +1,6 @@
 # Address Book built with Python, SQLite, and Tkinter
 
-This is a project to demonstrate one way to implement the MVC (Model, View, Controller) design pattern in Python with SQLite. I decided to create different Python UI library versions. Each UI (View) uses the same Controller (db_operations.py) and database (address_book.db).
+This project is designed to demonstrate how to implement the MVC (Model, View, Controller) design pattern in Python with SQLite. I decided to create different Python UI library versions. Each UI (View) uses the same Controller (db_operations.py) and database (address_book.db).
 
 ## tkinter.ttk
 
