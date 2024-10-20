@@ -266,7 +266,7 @@ class AddressBook(ct.CTk):
         self.lbl_status = ct.CTkLabel(self.entry_frame, text=" ", anchor="w")
 
         # -------------------- CREATE ENTRY BOXES ------------------------ #
-        ENTRY_WIDTH = 175
+        ENTRY_WIDTH = 275
         self.entry_fname = ct.CTkEntry(self.entry_frame, width=ENTRY_WIDTH)
         # Set focus for data entry
         self.entry_fname.focus_set()
@@ -360,11 +360,11 @@ class AddressBook(ct.CTk):
         )
 
         # Setup the columns
-        self.tree.column("id", width=40)
-        self.tree.column("first_name", width=150)
-        self.tree.column("last_name", width=150)
-        self.tree.column("phone", width=150)
-        self.tree.column("email", width=250)
+        self.tree.column("id", width=50)
+        self.tree.column("first_name", width=175)
+        self.tree.column("last_name", width=175)
+        self.tree.column("phone", width=175)
+        self.tree.column("email", width=325)
 
         # Setup the heading text visible at the top of the column
         self.tree.heading("id", text="ID", anchor=ct.W)
