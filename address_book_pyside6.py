@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (
     QTreeWidget, QTreeWidgetItem, QGroupBox, QMessageBox
 )
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
 import sys
 import db_operations
 
@@ -63,6 +64,11 @@ class AddressBook(QMainWindow):
         # Create and setup frames
         self.create_frames(top_layout)
         main_layout.addLayout(top_layout)
+
+        # Set window title bar icon, shows in task bar
+        my_icon = QIcon()
+        my_icon.addFile("./img/address_book-9.png")
+        self.setWindowIcon(my_icon)
 
         # Create treeview frame
         self.create_treeview()
