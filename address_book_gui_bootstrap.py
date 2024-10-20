@@ -5,7 +5,7 @@
     Tkinter version of MVC (Model View Controller) Address Book
     This is the view, the user interace
 """
-
+from base64 import b64decode
 # Import tkinter library
 from tkinter import *
 # python pip install ttkbootstrap
@@ -13,6 +13,8 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 # Database operations library
 import db_operations
+from address_book_png import icon_data_16
+from address_book_png import icon_data_32
 
 
 class AddressBook:
@@ -59,7 +61,10 @@ class AddressBook:
         self.root.geometry("+400+300")
 
         # Add icon to program title bar
-        self.root.iconbitmap("address_book.ico")
+        small_icon = PhotoImage(data=b64decode(icon_data_16))
+        large_icon = PhotoImage(data=b64decode(icon_data_32))
+        self.root.iconphoto(False, large_icon, small_icon)
+
         self.root.title("Address Book")
         self.root.resizable(False, False)
 

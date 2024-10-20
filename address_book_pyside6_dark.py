@@ -10,8 +10,10 @@ from PySide6.QtWidgets import (
     QTreeWidget, QTreeWidgetItem, QGroupBox, QMessageBox
 )
 from PySide6.QtCore import QFile, Qt
-from PySide6.QtGui import QIcon
+from PySide6.QtGui import QIcon, QPixmap, QImage
 import sys
+import base64
+from address_book_png import icon_data_16
 import db_operations
 
 
@@ -58,7 +60,18 @@ class AddressBook(QMainWindow):
 
         # Set window title bar icon, shows in task bar
         my_icon = QIcon()
-        my_icon.addFile("./img/address_book-9.png")
+
+        # Convert base64 to bytes
+        icon_data = base64.b64decode(icon_data_16)
+        
+        # Create QImage from bytes
+        image = QImage.fromData(icon_data)
+        
+        # Convert to QPixmap
+        pixmap = QPixmap.fromImage(image)
+        my_icon = QIcon(pixmap)
+
+        self.setWindowIcon(my_icon)
         self.setWindowIcon(my_icon)
 
         # Create treeview frame
