@@ -24,9 +24,13 @@ https://ttkbootstrap.readthedocs.io/en/latest/
 
 ## PySide6
 
+- Added sorting functionality to the column headings.
+
 ![App Interface](./img/app_pyside6.png)
 
 ## PySide6 Dark
+
+- Added sorting functionality to the column headings.
 
 ![App Interface](./img/app_pyside6_dark.png)
 
