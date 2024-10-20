@@ -8,6 +8,10 @@ tkinter.ttk library built in to Python.
 
 ![App Interface](./img/app.png)
 
+## customtkinter
+
+![App Interface](./img/app_customtkinter.png)
+
 ## ttkbootstrap
 
 https://ttkbootstrap.readthedocs.io/en/latest/
