@@ -24,6 +24,8 @@ https://ttkbootstrap.readthedocs.io/en/latest/
 
 ## PySide6
 
+https://www.pythonguis.com/pyside6-tutorial/
+
 - Added sorting functionality to the column headings.
 
 ![App Interface](./img/app_pyside6.png)
